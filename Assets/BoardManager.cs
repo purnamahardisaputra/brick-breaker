@@ -4,10 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class board : MonoBehaviour
+public class BoardManager : MonoBehaviour
 {
     public GameObject Board;
     [SerializeField] float movementSpeed = 10f;
+    public float force = 100f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +20,13 @@ public class board : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(Vector2.right * movementSpeed * Time.deltaTime);
+            if (gameObject.transform.position.x <= 7.14f)
+                transform.Translate(Vector2.right * movementSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Translate(Vector2.left * movementSpeed * Time.deltaTime);
+            if (gameObject.transform.position.x >= -7.14f)
+                transform.Translate(Vector2.left * movementSpeed * Time.deltaTime);
         }
     }
 
@@ -34,11 +37,11 @@ public class board : MonoBehaviour
             GameObject bola = GameObject.FindWithTag("ball");
             if (bola.transform.position.x > Board.transform.position.x)
             {
-                bola.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 100f);
+                bola.GetComponent<Rigidbody2D>().AddForce(Vector2.left * force);
             }
             else
             {
-                bola.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100f);
+                bola.GetComponent<Rigidbody2D>().AddForce(Vector2.right * force);
             }
         }
     }
