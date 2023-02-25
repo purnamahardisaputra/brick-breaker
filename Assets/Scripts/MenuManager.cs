@@ -7,8 +7,8 @@ public class MenuManager : MonoBehaviour
 {
     private void Awake()
     {
-        if (gameObject.name == "MenuManager")
-            DontDestroyOnLoad(gameObject);
+        // dont destroy this object
+        DontDestroyOnLoad(this.gameObject);
     }
 
 
@@ -16,6 +16,11 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void toggleMute(){
+        AudioListener.pause = !AudioListener.pause;
+    }
+
     public void exitGame()
     {
         Application.Quit();

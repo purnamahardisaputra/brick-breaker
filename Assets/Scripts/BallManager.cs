@@ -9,6 +9,7 @@ public class BallManager : MonoBehaviour
     public Rigidbody2D rigidbodyBall;
     [SerializeField] float powerBall;
     private bool firstBall = true;
+    public GameManager gameManager;
     [SerializeField] AudioSource audioSource;
 
 
@@ -26,11 +27,19 @@ public class BallManager : MonoBehaviour
             Debug.Log("First Ball");
             firstBall = false;
         }
+        if (other.gameObject.tag == "floor" && gameManager.isGameOver == false)
+        {
+            gameManager.isGameOver = true;
+        }
     }
 
     void OnCollisionExit2D(Collision2D other)
     {
-        audioSource.Play();
+        if(other.gameObject.tag == "board" || other.gameObject.tag == "brick" || other.gameObject.tag == "wall")
+        {
+            audioSource.Play();
+        }
+        
     }
 
 
